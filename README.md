@@ -34,11 +34,11 @@ flow transactions send ./cadence/transactions/setup_account.cdc --signer minter 
 * Create new minter account for new token type
 
 ```
-flow transactions build ./cadence/transactions/add_minter.cdc --arg "String:TEST_TOKEN_1" --authorizer deployer --authorizer minter --proposer deployer --payer minter -n testnet --filter payload --save built.rlp
-flow transactions sign ./built.rlp --signer deployer -n testnet --filter payload --save signed.rlp
-flow transactions sign ./signed.rlp --signer deployer -n testnet --filter payload --save signed.rlp
-flow transactions sign ./signed.rlp --signer minter -n testnet --filter payload --save signed.rlp
-flow transactions send-signed ./signed.rlp -n testnet
+flow transactions build ./cadence/transactions/AddMinter.cdc --arg "String:TEST_TOKEN_1" --authorizer emulator-account --authorizer emulator-bob --proposer emulator-account --payer emulator-bob -n emulator --filter payload --save built.rlp
+flow transactions sign ./built.rlp --signer emulator-account -n emulator --filter payload --save signed.rlp
+flow transactions sign ./signed.rlp --signer emulator-account -n emulator --filter payload --save signed.rlp
+flow transactions sign ./signed.rlp --signer emulator-bob -n emulator --filter payload --save signed.rlp
+flow transactions send-signed -n emulator ./signed.rlp
 ```
 
 * Mint new tokens from **Minter** of type **TEST_TOKEN_1** to **Minter**
